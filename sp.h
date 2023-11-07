@@ -80,6 +80,8 @@ namespace POC {
                         if (_pcb) _pcb->acquire(); 
                     }
 
+                // generalized copy constructors
+                // Effective C++ 3rd Edition, Item 45
                 template<class U>
                     shared_ptr(const shared_ptr<U> &x) noexcept
                     : _stored_ptr(x._stored_ptr), _pcb(x._pcb){
