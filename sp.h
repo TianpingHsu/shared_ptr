@@ -73,8 +73,14 @@ namespace POC {
                     {}
 
                 // copy constructor
-                //shared_ptr (const shared_ptr& x) noexcept;
-                //template <class U> shared_ptr (const shared_ptr<U>& x) noexcept;
+                // shared_ptr (const shared_ptr& x) noexcept;
+                // template <class U> shared_ptr (const shared_ptr<U>& x) noexcept;
+                // Declaring a
+                // generalized copy constructor (a member template) in a class doesn’t
+                // keep compilers from generating their own copy constructor (a non-
+                // template), so if you want to control all aspects of copy construction,
+                // you must declare both a generalized copy constructor as well as the
+                // “normal” copy constructor.
                 explicit shared_ptr(const shared_ptr& other) noexcept
                     : _stored_ptr(other._stored_ptr), _pcb(other._pcb) {
                         if (_pcb) _pcb->acquire(); 
@@ -82,6 +88,8 @@ namespace POC {
 
                 // generalized copy constructors
                 // Effective C++ 3rd Edition, Item 45
+                // because the member initilization list,
+                // this will compile only if there is an implicit conversion from a U* pointer to a T* pointer
                 template<class U>
                     shared_ptr(const shared_ptr<U> &x) noexcept
                     : _stored_ptr(x._stored_ptr), _pcb(x._pcb){
