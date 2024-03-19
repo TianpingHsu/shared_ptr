@@ -315,7 +315,7 @@ namespace POC {
                 }
 
                 bool expired() const noexcept {
-                    return _pcb ? true : _pcb->expired(); 
+                    return _pcb ? _pcb->expired() : false;
                 }
 
                 shared_ptr<T> lock() const noexcept {
